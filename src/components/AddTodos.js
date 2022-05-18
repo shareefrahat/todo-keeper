@@ -1,18 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 import { toast } from "react-toastify";
+import DisplayTodos from "./DisplayTodos";
 
 const AddTodos = () => {
+  const [todos, setTodos] = useState([]);
+
   const handleOnSubmit = (e) => {
     e.preventDefault();
     const title = e.target.title.value;
     const details = e.target.details.value;
-    const todo = { title, details };
-    console.log(todo);
+    const newTodo = { title, details };
+    setTodos([...todos, newTodo]);
     toast.success("New todo added");
     e.target.reset();
   };
+
+  const handleDelete = (name) => {
+    console.log(name);
+    const remaining = todos.filter((todo) => todo.title !== name);
+    setTodos(remaining);
+    toast.success("Successfully Deleted");
+  };
   return (
-    <div className="px-4">
+    <div className="px-4 flex flex-col-reverse my-10">
+      <DisplayTodos todos={todos} handleDelete={handleDelete}></DisplayTodos>
       <div className="shadow-md sm:rounded-lg border border-blue-700 p-5 text-left rounded w-full lg:w-1/2 mx-auto">
         <form onSubmit={handleOnSubmit}>
           <div>
