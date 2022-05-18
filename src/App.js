@@ -5,12 +5,20 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
+import PrivateRoute from "./pages/PrivateRoute";
 
 function App() {
   return (
     <div className="App">
       <Routes>
-        <Route path="/" element={<Home></Home>}></Route>
+        <Route
+          path="/"
+          element={
+            <PrivateRoute>
+              <Home></Home>
+            </PrivateRoute>
+          }
+        ></Route>
         <Route path="/login" element={<Login></Login>}></Route>
         <Route path="/signup" element={<Signup></Signup>}></Route>
       </Routes>
